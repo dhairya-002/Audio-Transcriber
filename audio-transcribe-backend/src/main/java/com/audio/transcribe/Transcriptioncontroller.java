@@ -73,7 +73,7 @@ public class Transcriptioncontroller {
 
         OpenAiAudioTranscriptionOptions transcriptionOptions =
                 OpenAiAudioTranscriptionOptions.builder()
-                        .responseFormat(TranscriptResponseFormat.TEXT)
+                        .responseFormat(TranscriptResponseFormat.JSON)
                         .language("en")
                         .temperature(0f)
                         .build();
@@ -88,10 +88,10 @@ public class Transcriptioncontroller {
 
         tempFile.delete();
 
-        return ResponseEntity.ok(response.getResult().getOutput()
+        return ResponseEntity.ok(response.getResult().getOutput().get("text").toString
 );
     } catch (Exception e) {
-        e.printStackTrace(); // 👈 CRITICAL
+        e.printStackTrace(); 
         return ResponseEntity
                 .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(e.getMessage());
