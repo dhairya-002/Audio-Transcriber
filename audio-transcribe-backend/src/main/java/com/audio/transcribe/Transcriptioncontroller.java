@@ -67,7 +67,8 @@ public class Transcriptioncontroller {
     public ResponseEntity<String> transcribeAudio(
             @RequestParam("file") MultipartFile file) throws IOException {
 
-        File tempFile = File.createTempFile("audio", ".wav");
+        try{
+            File tempFile = File.createTempFile("audio", ".wav");
         file.transferTo(tempFile);
 
         OpenAiAudioTranscriptionOptions transcriptionOptions =
@@ -89,5 +90,11 @@ public class Transcriptioncontroller {
 
         return ResponseEntity.ok(response.getResult().getOutput()
 );
-    }
+    } catch (Exception e) {
+        e.printStackTrace(); // 👈 CRITICAL
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(e.getMessage());
+            }
+}
 }
