@@ -88,7 +88,7 @@ public class Transcriptioncontroller {
 
         tempFile.delete();
 
-        return ResponseEntity.ok(response.getResult().getOutput().get("text").toString
+        return ResponseEntity.ok(response.getResult().getOutput()
 );
     } catch (Exception e) {
         e.printStackTrace(); 
