@@ -20,38 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
-/*@RestController
-@RequestMapping("/api/transcribe")
-public class Transcriptioncontroller {
 
-private final OpenAiAudioTranscriptionModel transcriptionModel;
-
-public Transcriptioncontroller(@Value("${spring.ai.openai.api-key}") String apikey){
-    OpenAiAudioApi openAiAudioApi = new OpenAiAudioApi(apikey, apikey, null, null);
-    this.transcriptionModel= new OpenAiAudioTranscriptionModel(openAiAudioApi);
-}
- @PostMapping
-  public ResponseEntity<String> transcribeAudio(
-    @RequestParam("file")MultipartFile file) throws IOException{
-       File tempFile = File.createTempFile("audio",".wav");
-       file.transferTo(tempFile);
-
-       OpenAiAudioTranscriptionOptions transcriptionOptions = OpenAiAudioTranscriptionOptions.builder()
-    .responseFormat(TranscriptResponseFormat.TEXT)
-    .language("en")
-    .temperature(0f)
-    .build();
-
-    FileSystemResource audioFile = new FileSystemResource(tempFile);
-     AudioTranscriptionPrompt transcriptionRequest = new AudioTranscriptionPrompt(audioFile, transcriptionOptions);
-     AudioTranscriptionResponse response = transcriptionModel.call(transcriptionRequest);
-    
-     tempFile.delete();
-     return new ResponseEntity<>(response.getResult().getOutput(), HttpStatus.OK);
-    }
- 
-}
-*/
 @RestController
 @RequestMapping("/api/transcribe")
 public class Transcriptioncontroller {
@@ -71,7 +40,7 @@ public class Transcriptioncontroller {
             File tempFile = File.createTempFile("audio", ".wav");
         file.transferTo(tempFile);
 
-        OpenAiAudioTranscriptionOptions transcriptionOptions =
+       /*  OpenAiAudioTranscriptionOptions transcriptionOptions =
                 OpenAiAudioTranscriptionOptions.builder()
                         .responseFormat(TranscriptResponseFormat.JSON)
                         .language("en")
@@ -89,7 +58,13 @@ public class Transcriptioncontroller {
         tempFile.delete();
 
         return ResponseEntity.ok(response.getResult().getOutput()
-);
+);*/
+
+        tempFile.delete();
+        return ResponseEntity.ok("Transcription service in temporarily unavailable(OpenAI billing not enabled).");
+
+
+
     } catch (Exception e) {
         e.printStackTrace(); 
         return ResponseEntity
