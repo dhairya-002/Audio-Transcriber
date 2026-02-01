@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { transcribeAudio } from "./services/transcriptionService";
+import { transcribeAudio } from "./transcriptionService";
 
 const AudioUploader = () => {
   const [file, setFile] = useState(null);
